@@ -1,1 +1,36 @@
-<h2>hola</h2>
+<mat-sidenav-container>
+    <mat-sidenav #menuLateral mode="push">
+        <mat-nav-list>
+            <h6>principal</h6>
+            <a mat-list-item routerLink="bienvenido" (click)="menuLateral.close()">
+                <mat-icon>home</mat-icon>
+                <span>Bienvenido</span>
+            </a>
+            <h6>monumentos</h6>
+            <a mat-list-item routerLink="monumentos" (click)="menuLateral.close()">
+                <mat-icon>explore</mat-icon>
+                <span>Monumentos</span>
+            </a>
+        </mat-nav-list>
+    </mat-sidenav>
+    <mat-sidenav-content>
+        <mat-toolbar color="primary" fxLayout *ngIf="usuarioAutenticado">
+            <button mat-icon-button (click)="menuLateral.toggle()">
+                <mat-icon>menu</mat-icon>
+            </button>            
+            <div fxLayout fxLayoutAlign="end center" fxFlex>
+                <button mat-icon-button [matMenuTriggerFor]="menuContextual">
+                    <mat-icon>more_vert</mat-icon>
+                </button>
+                <mat-menu #menuContextual>
+                    <button mat-menu-item (click)="logout()">
+                        <mat-icon>lock</mat-icon>
+                        Cerrar sesión
+                    </button>
+                </mat-menu>
+            </div>
+        </mat-toolbar>
+        <router-outlet></router-outlet>
+        
+    </mat-sidenav-content>
+</mat-sidenav-container>

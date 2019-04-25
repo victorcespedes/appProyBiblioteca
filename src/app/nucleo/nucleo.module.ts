@@ -6,9 +6,10 @@ import { LoginComponent } from './login/login.component';
 
 import { CompartidoModule } from '../compartido/compartido.module';
 import { ReactiveFormsModule, FormsModule } from '@angular/forms';
+import { BienvenidoComponent } from './bienvenido/bienvenido.component';
 
 @NgModule({
-  declarations: [LoginComponent],
+  declarations: [LoginComponent, BienvenidoComponent],
   imports: [
     CommonModule,
     NucleoRoutingModule,
