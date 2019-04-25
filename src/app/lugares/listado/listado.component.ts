@@ -1,10 +1,11 @@
 import { Component, OnInit } from '@angular/core';
 import { Monumento } from 'src/app/interfaces/monumento';
-import { Subject, merge, Subscription } from 'rxjs';
 import { MatDialog, MatDialogRef } from '@angular/material';
+import { Subject, merge, Subscription } from 'rxjs';
 import { MonumentosService } from 'src/app/servicios/monumentos.service';
-import { AngularFirestore } from '@angular/fire/firestore';
 import { FormularioComponent } from '../formulario/formulario.component';
+import { AngularFirestore } from '@angular/fire/firestore';
+
 
 @Component({
   selector: 'app-listado',
@@ -14,7 +15,8 @@ import { FormularioComponent } from '../formulario/formulario.component';
 export class ListadoComponent implements OnInit {
 
   monumentos : Monumento[] = [];
-  columnasAMostrar: string[] = ["titulo", "autores", "anio","lugar","acciones"];
+
+  columnasAMostrar: string[] = ["titulo", "anio","lugar","acciones"];
 
   suscripcion : Subscription
 
@@ -38,7 +40,32 @@ export class ListadoComponent implements OnInit {
   }
 
   formulario(data = null){
+    const ref = this.dialog.open(FormularioComponent,{
+      panelClass:"miClase",data
+    })
 
+    ref.afterClosed()
+      .subscribe(
+        (respuesta: any) => {
+          if (!respuesta) return false
+
+          if (respuesta.id != "") {
+            this.monumentoServ.actualizar(respuesta.monumento, respuesta.id)
+          } else {
+            this.monumentoServ.insertar(respuesta.monumento)
+          }
+        }
+      ) 
+
+  }
+
+
+  eliminar(id: string) {
+   
+  }
+
+  ngOnDestroy() {
+    this.suscripcion.unsubscribe()
   }
 
 }
