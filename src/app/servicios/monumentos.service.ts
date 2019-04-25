@@ -21,10 +21,11 @@ export class MonumentosService {
               .pipe(
                 map(arrDocumentos => {
                   return arrDocumentos.map(doc => {
+                    // console.log(doc.payload.doc.data());
+                    // ...doc.payload.doc.data() que haceee??
                     return {
-                      id: doc.payload.doc.id,                      
-                      ...doc.payload.doc.data()
-                    }
+                             id: doc.payload.doc.id, ...doc.payload.doc.data()
+                           }
                   })
                 })
               );
