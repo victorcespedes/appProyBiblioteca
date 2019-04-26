@@ -14,7 +14,7 @@ export class MonumentosService {
 
   private lista: Monumento[] = []
 
-  constructor(private fs: AngularFirestore, private fstorage: AngularFireStorage, private snackBar: MatSnackBar) { }
+  constructor(private readonly fs: AngularFirestore, private fstorage: AngularFireStorage, private snackBar: MatSnackBar) { }
 
     listar(): Observable<any> {
       return this.fs.collection("monumento").snapshotChanges()

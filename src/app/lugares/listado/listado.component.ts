@@ -5,6 +5,7 @@ import { Subject, merge, Subscription } from 'rxjs';
 import { MonumentosService } from 'src/app/servicios/monumentos.service';
 import { FormularioComponent } from '../formulario/formulario.component';
 import { AngularFirestore } from '@angular/fire/firestore';
+import { ConfirmarComponent } from 'src/app/compartido/confirmar/confirmar.component';
 
 
 @Component({
@@ -25,7 +26,7 @@ export class ListadoComponent implements OnInit {
   ngOnInit() {
       this.suscripcion = this.monumentoServ.listar()
         .subscribe(
-          (resultado : Monumento[]) =>{
+          (resultado : Monumento[]) =>{              
               this.monumentos = resultado;
           }
         )
@@ -61,6 +62,20 @@ export class ListadoComponent implements OnInit {
 
 
   eliminar(id: string) {
+    const ref: MatDialogRef<ConfirmarComponent> = this.dialog.open(ConfirmarComponent, {
+      panelClass: "confirmacion",
+      disableClose: true
+    })
+
+    ref.componentInstance.mensaje = "¿Quieres borrar?"
+
+    ref.afterClosed().subscribe(
+      respuesta => {
+        if (!respuesta) return false
+
+        this.monumentoServ.eliminar(id)
+      }
+    )
    
   }
 

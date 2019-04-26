@@ -6,6 +6,5 @@ export interface Monumento {
     lugar?: string    
 	imagenes?: any		
     estado?: boolean
-    fechaRegistro?: Date
-    fechaModificacion?: Date
+   
 }

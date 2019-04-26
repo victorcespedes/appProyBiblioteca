@@ -20,9 +20,10 @@ import {
   MatSnackBarModule
 } from "@angular/material";
 import { LayoutModule } from '@angular/cdk/layout';
+import { ConfirmarComponent } from './confirmar/confirmar.component';
 
 @NgModule({
-  declarations: [],
+  declarations: [ConfirmarComponent],
   imports: [
     CommonModule,
     FlexLayoutModule,
@@ -63,6 +64,7 @@ import { LayoutModule } from '@angular/cdk/layout';
     MatTableModule,
     MatDialogModule,
     MatSnackBarModule
-  ]
+  ],
+  entryComponents: [ConfirmarComponent]
 })
 export class CompartidoModule { }

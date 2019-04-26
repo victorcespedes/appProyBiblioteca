@@ -8,7 +8,7 @@ h5 {
 }
 
 mat-card-content {
-	padding: 16px;
+	padding: 10px;
 }
 
 table {
@@ -22,3 +22,4 @@ table {
 [mat-row] {
 	cursor: pointer;
 }
+
