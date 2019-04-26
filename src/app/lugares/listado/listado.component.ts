@@ -17,7 +17,7 @@ export class ListadoComponent implements OnInit {
 
   monumentos : Monumento[] = [];
 
-  columnasAMostrar: string[] = ["titulo", "anio","lugar","acciones"];
+  columnasAMostrar: string[] = ["titulo","autores","anio","lugar","acciones"];
 
   suscripcion : Subscription
 
@@ -41,22 +41,23 @@ export class ListadoComponent implements OnInit {
   }
 
   formulario(data = null){
-    const ref = this.dialog.open(FormularioComponent,{
-      panelClass:"miClase",data
-    })
+    
+      const ref = this.dialog.open(FormularioComponent,{
+        panelClass:"miClase",data
+      })
 
-    ref.afterClosed()
-      .subscribe(
-        (respuesta: any) => {
-          if (!respuesta) return false
+      ref.afterClosed()
+        .subscribe(
+          (respuesta: any) => {
+            if (!respuesta) return false
 
-          if (respuesta.id != "") {
-            this.monumentoServ.actualizar(respuesta.monumento, respuesta.id)
-          } else {
-            this.monumentoServ.insertar(respuesta.monumento)
+            if (respuesta.id != "") {
+              this.monumentoServ.actualizar(respuesta.monumento, respuesta.id)
+            } else {
+              this.monumentoServ.insertar(respuesta.monumento)
+            }
           }
-        }
-      ) 
+        ) 
 
   }
 

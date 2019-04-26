@@ -1,7 +1,7 @@
 export interface Monumento {
     id?: string
     titulo?: string    
-    autores?: string[]
+    autores?: string
     anio?: number    
     lugar?: string    
 	imagenes?: any		

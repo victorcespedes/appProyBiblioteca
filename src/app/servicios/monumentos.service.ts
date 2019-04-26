@@ -1,6 +1,7 @@
 import { Injectable } from '@angular/core';
 import { Monumento } from '../interfaces/monumento';
 import { Observable, of, Subject } from 'rxjs';
+
 import { AngularFirestore } from '@angular/fire/firestore';
 import { map, finalize } from 'rxjs/operators';
 import { AngularFireStorage, AngularFireStorageReference, AngularFireUploadTask } from '@angular/fire/storage';
@@ -21,8 +22,7 @@ export class MonumentosService {
               .pipe(
                 map(arrDocumentos => {
                   return arrDocumentos.map(doc => {
-                    // console.log(doc.payload.doc.data());
-                    // ...doc.payload.doc.data() que haceee??
+                    // console.log(doc.payload.doc.data()); // ... cadena de json
                     return {
                              id: doc.payload.doc.id, ...doc.payload.doc.data()
                            }

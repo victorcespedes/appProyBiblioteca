@@ -22,46 +22,50 @@ export class FormularioComponent implements OnInit {
 
   constructor(@Inject(MAT_DIALOG_DATA) public data, private dialogRef: MatDialogRef<FormularioComponent>, private formBuilder: FormBuilder, private storage: AngularFireStorage) { }
 
-  ngOnInit() {
-    const datos = this.data ? this.data.monumento : {}
+  ngOnInit() {  
+    const datos = this.data ? this.data.monumento : {};
     this.id = this.data ? this.data.id : ""
     this.titulo = this.data ? "Edición" : "Nuevo"
     this.grupo = this.crearForm(datos)
     
-    if (this.data.monumento.imagenes) {
-      const ref = this.storage.ref(this.data.monumento.imagenes)
-      ref.getDownloadURL()
-        .subscribe(
-          ruta => this.archivo = ruta
-        )
-    }
+      if (this.data.monumento.imagenes) {        
+    //    if (this.data) {
+          const ref = this.storage.ref(this.data.monumento.imagenes)
+          ref.getDownloadURL()
+            .subscribe(
+              ruta => this.archivo = ruta
+            )
+      }
   }
 
         crearForm(data: Monumento): FormGroup {
           return this.formBuilder.group({
             titulo: [data.titulo, Validators.required],
+            autores: [data.autores,Validators.required],
+            anio: [data.anio,Validators.required],
             lugar: [data.lugar, Validators.required],
+
             imagenes: [data.imagenes]
           })
         }
 
-        guardar() {
-          if (this.id == "") {
-            this.dialogRef.close({
-              monumento: this.grupo.getRawValue(),
-              id: this.id
-            })
-          } else {
-            const datos = this.grupo.getRawValue()
-            if (!this.imagenCambiada) {
-              delete datos.imagenes
-            }
+        guardar() {          
+              if (this.id == "") {
+                this.dialogRef.close({monumento: this.grupo.getRawValue(),
+                                             id: this.id
+                                     }
+                                    )
+              } else {
+                const datos = this.grupo.getRawValue()
+                if (!this.imagenCambiada) {
+                  delete datos.imagenes
+                }
 
-            this.dialogRef.close({
-              monumento: datos,
-              id: this.id
-            })
-          }
+                this.dialogRef.close({
+                  monumento: datos,
+                  id: this.id
+                })
+              }
 
         }
 
